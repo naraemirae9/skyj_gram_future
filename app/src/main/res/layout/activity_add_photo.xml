@@ -38,7 +38,7 @@
         android:layout_height="wrap_content">
         <EditText
             android:layout_gravity="top"
-            android:hint="@+id/addphoto_edit_explain"
+            android:id="@+id/addphoto_edit_explain"
             android:layout_width="match_parent"
             android:layout_height="100dp"/>
     </com.google.android.material.textfield.TextInputLayout>

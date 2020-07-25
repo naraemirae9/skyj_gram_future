@@ -40,19 +40,6 @@ class LoginActivity : AppCompatActivity() {
         var signInIntent = googleSignInClient?.signInIntent
         startActivityForResult(signInIntent,GOOGLE_LOGIN_CODE)
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode==GOOGLE_LOGIN_CODE){
-            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
-            if (result != null) {
-                if(result.isSuccess){
-                    var account = result.signInAccount
-                    firebaseAuthWithGoogle(account)
-                }
-            }
-        }
-    }
     fun firebaseAuthWithGoogle(account : GoogleSignInAccount?){
         var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
         auth?.signInWithCredential(credential)
@@ -66,6 +53,19 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==GOOGLE_LOGIN_CODE){
+            var result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+                if(result!!.isSuccess){
+                    var account = result.signInAccount
+                    firebaseAuthWithGoogle(account)
+
+            }
+        }
+    }
+
     fun signinAndSignup() {
         auth?.createUserWithEmailAndPassword(email_edittext.text.toString(), password_edittext.text.toString())
                 ?.addOnCompleteListener { task ->
@@ -97,6 +97,7 @@ class LoginActivity : AppCompatActivity() {
     fun moveMainPage(user: FirebaseUser?){
         if(user != null){
             startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
 }
