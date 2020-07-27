@@ -1,4 +1,4 @@
-package navigation
+package com.example.instagram_future.navigation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.instagram_future.R
 
-class AlarmFragment : Fragment(){
+class GridFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view=LayoutInflater.from(activity).inflate(R.layout.fragment_alarm,container,false)
+        var view=LayoutInflater.from(activity).inflate(R.layout.fragment_grid,container,false)
         return view
     }
 }

@@ -1,4 +1,4 @@
-package navigation.Model
+package com.example.instagram_future.navigation.Model
 
 data class ContentDTO(var explain : String? =null, var imageUrl : String? =null,
                       var uid : String?=null, var userId:String?=null,

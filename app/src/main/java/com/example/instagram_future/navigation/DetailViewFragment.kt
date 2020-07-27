@@ -1,4 +1,4 @@
-package navigation
+package com.example.instagram_future.navigation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
-import navigation.Model.ContentDTO
+import com.example.instagram_future.navigation.Model.ContentDTO
 
 class DetailViewFragment : Fragment(){
     var firestore : FirebaseFirestore?=null
@@ -36,6 +36,9 @@ class DetailViewFragment : Fragment(){
             firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener{querySnapshot, firebaseFirestoreException ->
                 contentDTOs.clear()
                 contentUidList.clear()
+                //Sometimes, this code return null of querySnaphot when it signout
+                if(querySnapshot==null) return@addSnapshotListener
+
                 for(snapshot in querySnapshot!!.documents){
                     var item = snapshot.toObject(ContentDTO::class.java)
                     contentDTOs.add(item!!)
@@ -85,6 +88,17 @@ class DetailViewFragment : Fragment(){
                 viewholder.detailviewitem_favorite_imageview.setImageResource(R.drawable.ic_favorite_border)
 
             }
+            viewholder.detailviewitem_profile_image.setOnClickListener {
+                var fragment=UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid",contentDTOs[p1].uid)
+                bundle.putString("userId",contentDTOs[p1].userId)
+                fragment.arguments=bundle
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content,fragment)?.commit()
+
+            }
+
+
 
             //profile image
             Glide.with(p0.itemView.context).load(contentDTOs!![p1].imageUrl).into(viewholder.detailviewitem_profile_image)
