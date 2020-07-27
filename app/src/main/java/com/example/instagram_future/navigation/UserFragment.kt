@@ -64,7 +64,7 @@ class UserFragment : Fragment(){
             }
         }
 
-        fragmentView?.account_recyclerview?.adapter=UserFragemnetRecyclerViewAdapter()
+        fragmentView?.account_recyclerview?.adapter= UserFragmentRecyclerViewAdapter()
         fragmentView?.account_recyclerview?.layoutManager=GridLayoutManager(activity!!,3)
 
         fragmentView?.account_iv_profile?.setOnClickListener {
@@ -165,7 +165,7 @@ class UserFragment : Fragment(){
         }
 
     }
-    inner class UserFragemnetRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    inner class UserFragmentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         var contentDTOs : ArrayList<ContentDTO> = arrayListOf()
                 init{
                     firestore?.collection("images")?.whereEqualTo("uid",uid)?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
