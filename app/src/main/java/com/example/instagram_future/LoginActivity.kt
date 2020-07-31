@@ -19,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
     var auth: FirebaseAuth? = null
     var googleSignInClient : GoogleSignInClient? = null
     var GOOGLE_LOGIN_CODE=9001
+   // var callbackManager : CallbackManager? =null
     override fun onCreate(savedInstanceState: Bundle? ) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -30,7 +31,7 @@ class LoginActivity : AppCompatActivity() {
             googleLogin()
         }
 
-        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN)
+        var gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build()
@@ -46,19 +47,6 @@ class LoginActivity : AppCompatActivity() {
         moveMainPage(auth?.currentUser)
     }
 
-    fun firebaseAuthWithGoogle(account : GoogleSignInAccount?){
-        var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
-        auth?.signInWithCredential(credential)
-                ?.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        //Login
-                        moveMainPage(task.result?.user)
-                    } else {
-                        //Show the error message
-                        Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
-                    }
-                }
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -72,9 +60,26 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    fun firebaseAuthWithGoogle(account : GoogleSignInAccount?){
+        var credential = GoogleAuthProvider.getCredential(account?.idToken,null)
+        auth?.signInWithCredential(credential)
+                ?.addOnCompleteListener {
+                    task ->
+                    if (task.isSuccessful) {
+                        //Login
+                        moveMainPage(task.result?.user)
+                    } else {
+                        //Show the error message
+                        Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+                    }
+                }
+    }
+
+
     fun signinAndSignup() {
         auth?.createUserWithEmailAndPassword(email_edittext.text.toString(), password_edittext.text.toString())
-                ?.addOnCompleteListener { task ->
+                ?.addOnCompleteListener {
+                    task ->
                     if (task.isSuccessful) {
                         //Creating a user account
                         moveMainPage(task.result?.user)

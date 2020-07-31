@@ -23,6 +23,7 @@ import com.google.firebase.storage.UploadTask
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener{
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
+        setToolbarDefault()
         when(p0.itemId){
             R.id.action_home->{
                 var detailViewFragment=DetailViewFragment()
