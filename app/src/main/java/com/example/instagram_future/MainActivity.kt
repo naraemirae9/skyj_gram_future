@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import com.example.instagram_future.navigation.*
+import com.example.instagram_future.navigation.util.FcmPush
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -84,6 +85,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         bottom_navigation.selectedItemId=R.id.action_home
         registerPushToken()
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        FcmPush.instance.sendMessage("1WECx4Yo7oOwCdu4Q8dNHmHfhBL2","hi","bye")
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

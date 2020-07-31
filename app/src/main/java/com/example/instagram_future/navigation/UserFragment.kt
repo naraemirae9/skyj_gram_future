@@ -20,6 +20,7 @@ import com.example.instagram_future.R
 import com.example.instagram_future.navigation.Model.AlarmDTO
 import com.example.instagram_future.navigation.Model.ContentDTO
 import com.example.instagram_future.navigation.Model.FollowDTO
+import com.example.instagram_future.navigation.util.FcmPush
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.*
@@ -163,6 +164,9 @@ class UserFragment : Fragment(){
         alarmDTO.kind=2
         alarmDTO.timestamp= System.currentTimeMillis()
         FirebaseFirestore.getInstance().collection("alarms").document().set(alarmDTO)
+
+        var message = auth?.currentUser?.email + getString(R.string.alarm_follow)
+        FcmPush.instance.sendMessage(destinationUid,"Futuregram",message)
 
     }
     fun getProfileImage(){
