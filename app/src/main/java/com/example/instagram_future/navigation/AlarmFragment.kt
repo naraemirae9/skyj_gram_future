@@ -18,8 +18,9 @@ import kotlinx.android.synthetic.main.item_comment.*
 import kotlinx.android.synthetic.main.item_comment.view.*
 
 class AlarmFragment : Fragment(){
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view=LayoutInflater.from(activity).inflate(R.layout.fragment_alarm,container,false)
+        var view = LayoutInflater.from(activity).inflate(R.layout.fragment_alarm,container,false)
         view.alarmfragment_recyclerview.adapter = AlarmRecyclerviewAdapter()
         view.alarmfragment_recyclerview.layoutManager=LinearLayoutManager(activity)
         return view
@@ -55,7 +56,7 @@ class AlarmFragment : Fragment(){
 
             FirebaseFirestore.getInstance().collection("profileImages").document(alarmDTOList[p1].uid!!).get().addOnCompleteListener { task ->
                 if(task.isSuccessful){
-                    var url=task.result!!["image"]
+                    val url = task.result!!["image"]
                     Glide.with(view.context).load(url).apply(RequestOptions().circleCrop()).into(view.commentviewitem_imageview_profile)
                 }
             }
@@ -75,7 +76,7 @@ class AlarmFragment : Fragment(){
                 }
 
             }
-            view.commentviewitem_textview_comment.visibility=View.INVISIBLE
+            view.commentviewitem_textview_comment.visibility = View.INVISIBLE
 
         }
     }

@@ -102,9 +102,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             storageRef.putFile(imageUri!!).continueWithTask{task: Task<UploadTask.TaskSnapshot> ->
                 return@continueWithTask storageRef.downloadUrl
             }.addOnSuccessListener { uri ->
-                var map =HashMap<String,Any>()
+                var map = mutableMapOf<String,Any>()
                 map["image"]=uri.toString()
-                FirebaseFirestore.getInstance().collection("profileImages").document(uid).set(map)
+                FirebaseFirestore.getInstance().collection("profileImages").document(uid!!).set(map)
             }
         }
     }

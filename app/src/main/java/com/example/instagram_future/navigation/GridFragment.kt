@@ -16,7 +16,7 @@ import com.example.instagram_future.navigation.Model.ContentDTO
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_grid.view.*
 
-class GridFragment : Fragment() {
+class GridFragment : Fragment(){
     var firestore: FirebaseFirestore? = null
     var fragmentView: View? = null
 
